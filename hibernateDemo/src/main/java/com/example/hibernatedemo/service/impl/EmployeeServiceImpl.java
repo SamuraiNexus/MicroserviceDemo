@@ -7,12 +7,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
+
 
     private EmployeeRepository employeeRepository;
 
@@ -32,12 +34,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Transactional
     public int saveEmployee(Employee employee) {
         employeeRepository.save(employee);
         return employee.getEmployee_id();
     }
 
     @Override
+    @Transactional
     public void updateEmployee(Employee employee) {
         if (!employeeRepository.findById(employee.getEmployee_id()).isPresent()) {
             return;
@@ -48,5 +52,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> findEmployeeWithDepartmentId(int department_id) {
         return employeeRepository.findByIdWithDepartment(department_id);
+    }
+
+    @Override
+    public List<Employee> findEmployeeByEmailFormat(String format) {
+        return employeeRepository.findByEmail(format);
     }
 }

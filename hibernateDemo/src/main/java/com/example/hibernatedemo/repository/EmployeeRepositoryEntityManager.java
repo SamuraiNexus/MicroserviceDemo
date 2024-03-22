@@ -39,8 +39,18 @@ public class EmployeeRepositoryEntityManager {
 
     public List<Employee> getEmployeeByDepartmentId(int departmentId) {
         TypedQuery<Employee> query = entityManager.createQuery(
-                "select e from Employee e join Department d where d.department_id =:departmentid",
+                "select e from Employee e where e.department.department_id =:departmentid",
                 Employee.class);
+        query.setParameter("departmentid", departmentId);
+        List<Employee> employees = query.getResultList();
+        return employees;
+    }
+
+    public List<Employee> getEmployeeByEmail(String email) {
+        TypedQuery<Employee> query = entityManager.createQuery(
+                "select e from Employee e where e.email like %:email",
+                Employee.class);
+        query.setParameter("email", email);
         List<Employee> employees = query.getResultList();
         return employees;
     }

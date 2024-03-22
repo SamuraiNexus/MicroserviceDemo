@@ -47,4 +47,9 @@ public class EmployeeServiceByEntityManagerImpl implements EmployeeService {
     public List<Employee> findEmployeeWithDepartmentId(int department_id) {
         return entityManager.getEmployeeByDepartmentId(department_id);
     }
+
+    @Override
+    public List<Employee> findEmployeeByEmailFormat(String format) {
+        return entityManager.getEmployeeByEmail(format);
+    }
 }

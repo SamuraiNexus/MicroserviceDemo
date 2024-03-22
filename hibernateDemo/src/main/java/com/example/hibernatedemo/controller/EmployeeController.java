@@ -82,4 +82,12 @@ public class EmployeeController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
+    @GetMapping()
+    @ApiOperation(value ="find list of employees by emailFormat", notes = "find employee by emailFormat")
+    @ApiImplicitParam(paramType = "path", name = "emailFormat", value = "email Format", required = true)
+    public ResponseEntity<List<Employee>> getEmployeesByEmailsFormat(@RequestParam String emailFormat) {
+        List<Employee> employees = employeeService.findEmployeeByEmailFormat(emailFormat);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
 }

@@ -15,4 +15,6 @@ public interface EmployeeService {
      int saveEmployee(Employee employee);
      void updateEmployee(Employee employee);
      List<Employee> findEmployeeWithDepartmentId(int department_id);
+     List<Employee> findEmployeeByEmailFormat(String format);
+
 }
